@@ -19,6 +19,6 @@ const TaskSchema = new Schema({
 	}
 })
 
-module.exports = connection => {
-  return connection.model('Task', TaskSchema)
+module.exports = mongoose => {
+  return mongoose.model('Task', TaskSchema)
 }

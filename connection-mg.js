@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 mongoose.set('useCreateIndex', true)
 
-module.exports = (dbUrl) => {
-  console.log(dbUrl)
-	return mongoose.createConnection(dbUrl, {
+module.exports = (mongoUrl) => {
+	return mongoose.createConnection(mongoUrl, {
 		useNewUrlParser: true
 	})
 }
