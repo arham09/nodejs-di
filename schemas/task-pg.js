@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize')
 
 module.exports = (sequelize) => {
-  console.log(sequelize)
   const Task = sequelize.define('tasks', {
     id: {
       type: DataTypes.INTEGER,
