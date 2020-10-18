@@ -26,9 +26,7 @@ module.exports = () => {
   }
 
   function inject(factory) {
-    const args = fnArgs(factory).map(dep => {
-      container.get(dep)
-    })
+    const args = fnArgs(factory).map(dependency => container.get(dependency));
 
     return factory.apply(null, args)
   }

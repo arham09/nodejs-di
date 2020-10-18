@@ -2,18 +2,18 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const config = require('./config')
-const TaskSchema = require('./schemas/task')
+const container = require('./container')()
 
 // App
 const app = express()
 
-// Factories
-const dbConnectionFactory = require('./connection')
-const modelFactory = require('./model')
+// Container
+container.register('dbUrl', config.mongoUrl)
+container.factory('connection', require('./connection'))
+container.factory('TaskModel', require('./schemas/task'))
 
-// Instance
-const connection = dbConnectionFactory(config.mongoUrl)
-const Task = modelFactory(connection, 'Task', TaskSchema)
+// Task
+const Task = container.get('TaskModel')
 
 app.use(bodyParser.urlencoded({ extended: false })).use(jsonParser)
 
