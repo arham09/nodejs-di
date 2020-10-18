@@ -2,23 +2,31 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const config = require('./config')
-const TaskSchema = require('./schemas/task')
+const container = require('./container')()
 
 // App
 const app = express()
 
-// Factories
-const dbConnectionFactory = require('./connection')
-const modelFactory = require('./model')
+// Regoster Dep
+container.register('mongoUrl', config.mongoUrl)
+container.register('pgUrl', config.pgUrl)
 
-// Instance
-const connection = dbConnectionFactory(config.mongoUrl)
-const Task = modelFactory(connection, 'Task', TaskSchema)
+// Query
+container.factory('mongoose', require('./connection-mg'))
+container.factory('TaskQueryModel', require('./schemas/task-mg'))
+
+// Command
+container.factory('sequelize', require('./connection-pg'))
+container.factory('TaskCommandModel', require('./schemas/task-pg'))
+
+// Task Query
+const TaskQuery = container.get('TaskQueryModel')
+const TaskCommand = container.get('TaskCommandModel')
 
 app.use(bodyParser.urlencoded({ extended: false })).use(jsonParser)
 
 app.get('/tasks', (req, res) => {
-	Task.find((err, tasks) => {
+	TaskQuery.find((err, tasks) => {
 		if(err) {
 			return res.sendStatus(400)
 		}
