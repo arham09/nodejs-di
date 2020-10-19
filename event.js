@@ -4,9 +4,20 @@ class Subscriber {
   }
 
   next (value) {
-    console.log(value)
     const TaskQuery = this.container.get('TaskQueryModel')
-    console.log(TaskQuery)
+    
+    const data = new TaskQuery({
+      originId: value.id,
+      name: value.name,
+      description: value.description,
+      completed: value.completed
+    })
+
+    data.save(err => {
+      if (err) console.error(err)
+
+      console.log('Data Sync')
+    })
   }
 }
 
