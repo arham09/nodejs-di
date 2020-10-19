@@ -38,7 +38,7 @@ app.get('/tasks', (req, res) => {
 			return res.sendStatus(400)
 		}
 
-		return res.json(tasks.toJSON())
+		return res.json(tasks)
 	})
 })
 
