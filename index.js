@@ -42,6 +42,16 @@ app.get('/tasks', (req, res) => {
 	})
 })
 
+app.get('/tasks/:id', (req, res) => {
+	TaskQuery.find({ originId: req.params.id }, (err, tasks) => {
+		if(err) {
+			return res.sendStatus(400)
+		}
+
+		return res.json(tasks[0])
+	})
+})
+
 app.post('/tasks', async (req, res) => {
 	try {
 		const task = await TaskCommand.create({
