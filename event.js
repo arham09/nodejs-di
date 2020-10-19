@@ -42,6 +42,8 @@ class Subscriber {
         return this.create(data.value)
       case 'update':
         return this.update(data.value, data.id)
+      default:
+        console.log('No Action')
     }
   }
 }
