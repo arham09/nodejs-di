@@ -38,7 +38,17 @@ app.get('/tasks', (req, res) => {
 			return res.sendStatus(400)
 		}
 
-		return res.json(tasks.toJSON())
+		return res.json(tasks)
+	})
+})
+
+app.get('/tasks/:id', (req, res) => {
+	TaskQuery.find({ originId: req.params.id }, (err, tasks) => {
+		if(err) {
+			return res.sendStatus(400)
+		}
+
+		return res.json(tasks[0])
 	})
 })
 
@@ -50,7 +60,7 @@ app.post('/tasks', async (req, res) => {
 			completed: req.body.completed
 		})
 
-		subject.next(task.toJSON())
+		subject.next({ action: 'create', value: task.toJSON()})
 
 		return res.json(task)
 	} catch (error) {
