@@ -23,12 +23,6 @@ class Subscriber {
   update (value, id) {
     const TaskQuery = this.container.get('TaskQueryModel')
 
-    const data = {}
-
-		for (const [key, val] of Object.entries(value)) {
-			data[key] = val
-		}
-
     TaskQuery.updateOne({ originId: id }, value, (err, res) => {
       if (err) console.error(err)
 
