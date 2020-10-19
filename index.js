@@ -50,7 +50,7 @@ app.post('/tasks', async (req, res) => {
 			completed: req.body.completed
 		})
 
-		subject.next(task.toJSON())
+		subject.next({ action: 'create', value: task.toJSON()})
 
 		return res.json(task)
 	} catch (error) {

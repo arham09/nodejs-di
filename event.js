@@ -3,7 +3,7 @@ class Subscriber {
     this.container = container
   }
 
-  next (value) {
+  create (value) {
     const TaskQuery = this.container.get('TaskQueryModel')
     
     const data = new TaskQuery({
@@ -18,6 +18,10 @@ class Subscriber {
 
       console.log('Data Sync')
     })
+  }
+
+  next (data) {
+    if (data.action === 'create') this.create(data.value)
   }
 }
 
