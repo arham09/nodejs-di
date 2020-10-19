@@ -1,5 +1,5 @@
 const express = require('express')
-const { Subject } = require('rxjs')
+const { Subject, async } = require('rxjs')
 const bodyParser = require('body-parser')
 const Subscriber = require('./event')
 const jsonParser = bodyParser.json()
@@ -63,6 +63,26 @@ app.post('/tasks', async (req, res) => {
 		subject.next({ action: 'create', value: task.toJSON()})
 
 		return res.json(task)
+	} catch (error) {
+		return res.json(error)
+	}
+})
+
+app.patch('/tasks/:id', async (req, res) => {
+	try {
+		const data = {}
+
+		for (const [key, val] of Object.entries(req.body)) {
+			data[key] = val
+		}
+
+		const task = await TaskCommand.update(data, { where: { id: req.params.id } })
+
+		if (task[0] === 0) return res.sendStatus(404)
+
+		subject.next({ action: 'update', value: data, id: req.params.id })
+
+		return res.json({ message: 'Data Updated' })
 	} catch (error) {
 		return res.json(error)
 	}
