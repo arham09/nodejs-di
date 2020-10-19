@@ -37,9 +37,14 @@ class Subscriber {
   }
 
   next (data) {
-    if (data.action === 'create') this.create(data.value)
-
-    if (data.action === 'update') this.update(data.value, data.id)
+    switch (data.action) {
+      case 'create':
+        return this.create(data.value)
+      case 'update':
+        return this.update(data.value, data.id)
+      default:
+        console.log('No Action')
+    }
   }
 }
 
