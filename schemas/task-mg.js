@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const TaskSchema = new Schema({
+	originId: {
+		type: Number,
+		unique: false,
+		required: true
+	},
 	name: {
 		type: String,
 		unique: false,
