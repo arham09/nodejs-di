@@ -1,5 +1,7 @@
+require('dotenv').config()
+
 module.exports = {
-  mongoUrl: 'mongodb://localhost:27017/testDb',
-  pgUrl: 'postgres://postgres@127.0.0.1/taskpg',
-  port: 2020
+  mongoUrl: process.env.MONGOURL,
+  pgUrl: process.env.PGURL,
+  port: process.env.PORT
 }
