@@ -1,0 +1,3 @@
+MONGOURL = 'mongodb://localhost:27017/yourdb'
+PGURL = 'postgres://postgres@localhost/yourdb'
+PORT = 2020
