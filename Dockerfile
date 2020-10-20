@@ -18,4 +18,6 @@ RUN npm install
 COPY . .
 
 EXPOSE 2020
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "start" ]
+
+# docker build -t <your username>/node-web-app .
