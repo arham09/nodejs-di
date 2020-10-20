@@ -30,12 +30,24 @@ class Subscriber {
     })
   }
 
+  delete (id) {
+    const TaskQuery = this.container.get('TaskQueryModel')
+
+    TaskQuery.deleteOne({ originId: id }, (err) => {
+      if (err) console.error(err)
+
+      console.log(`Data with following id ${id} is deleted`)
+    })
+  }
+
   next (data) {
     switch (data.action) {
       case 'create':
         return this.create(data.value)
       case 'update':
         return this.update(data.value, data.id)
+      case 'delete':
+        return this.delete(data.id)
       default:
         console.log('No Action')
     }
