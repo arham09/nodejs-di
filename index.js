@@ -88,5 +88,19 @@ app.patch('/tasks/:id', async (req, res) => {
 	}
 })
 
+app.delete('/tasks/:id', async (req, res) => {
+	try {
+		const task = await TaskCommand.destroy({ where: { id: req.params.id } })
+
+		if (task === 0) return res.sendStatus(404)
+
+		subject.next({ action: 'delete', id: req.params.id })
+
+		return res.json({ message: 'Data Deleted' })
+	} catch (error) {
+		return res.json(error)
+	}
+})
+
 app.listen(config.port, () => console.log("Listening on port ", config.port))
 
