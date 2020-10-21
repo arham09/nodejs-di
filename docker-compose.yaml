@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: nodejs_di_cqrs
+    ports: 
+      - '2020:2020'
+    depends_on: 
+      - database-pg
+    volumes: 
+      - ./.env:/usr/src/app/.env
+
+  database-pg:
+    image: postgres:10.4
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+
+  database-mongo:
+    image: mongo:latest
+    ports: 
+      - '27018:27017'
