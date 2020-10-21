@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: nodejs_di_cqrs
+    ports: 
+      - '2020:2020'
+    depends_on:
+      database-mongo:
+        condition: service_healthy 
+      database-pg:
+        condition: service_healthy
+    volumes: 
+      - ./.env:/usr/src/app/.env
+
+  database-pg:
+    image: postgres:10.4
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: db
+    volumes: 
+      - ~/pg/data:/data/db
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "user", "-U", "pass" ]
+      interval: 10s
+      timeout: 2s
+      retries: 3
+
+
+  database-mongo:
+    image: mongo:latest
+    ports: 
+      - '27018:27017'
+    volumes: 
+      - ~/mongo/data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--port", "27017"]
+      interval: 10s
+      timeout: 2s
+      retries: 3
