@@ -31,7 +31,6 @@ services:
       timeout: 2s
       retries: 3
 
-
   database-mongo:
     image: mongo:latest
     ports: 
