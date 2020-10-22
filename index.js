@@ -1,10 +1,12 @@
 const express = require('express')
 const { Subject, async } = require('rxjs')
 const bodyParser = require('body-parser')
+const swagger = require('swagger-ui-express')
 const Subscriber = require('./event')
 const jsonParser = bodyParser.json()
 const config = require('./config')
 const container = require('./container')()
+
 
 // App
 const subject = new Subject()
@@ -29,6 +31,10 @@ const TaskCommand = container.get('TaskCommandModel')
 // Event
 const subscriber = new Subscriber(container)
 subject.subscribe(subscriber)
+
+// Doc
+const doc = require('./swagger.json')
+app.use('/docs', swagger.serve, swagger.setup(doc))
 
 app.use(bodyParser.urlencoded({ extended: false })).use(jsonParser)
 
