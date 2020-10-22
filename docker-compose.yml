@@ -12,8 +12,6 @@ services:
         condition: service_healthy 
       database-pg:
         condition: service_healthy
-    volumes: 
-      - ./.env:/usr/src/app/.env
 
   database-pg:
     image: postgres:10.4
@@ -24,7 +22,7 @@ services:
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: db
     volumes: 
-      - ~/pg/data:/data/db
+      - ~/node-di/pg:/data/db
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "user", "-U", "pass" ]
       interval: 10s
@@ -36,7 +34,7 @@ services:
     ports: 
       - '27018:27017'
     volumes: 
-      - ~/mongo/data:/data/db
+      - ~/node-di/mongo:/data/db
     healthcheck:
       test: ["CMD", "mongo", "--port", "27017"]
       interval: 10s
