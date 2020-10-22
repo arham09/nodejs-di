@@ -16,9 +16,21 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     completed: {
-      type: DataTypes.STRING(55),
+      type: DataTypes.BOOLEAN,
       allowNull: false
-    }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.fn('NOW'),
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.fn('NOW'),
+      field: 'updated_at'
+    },
   })
 
   return Task

@@ -57,7 +57,9 @@ app.post('/tasks', async (req, res) => {
 		const task = await TaskCommand.create({
 			name: req.body.name,
 			description: req.body.description,
-			completed: req.body.completed
+			completed: req.body.completed,
+			createdAt: new Date(),
+			updatedAt: new Date()
 		})
 
 		subject.next({ action: 'create', value: task.toJSON()})
@@ -70,7 +72,9 @@ app.post('/tasks', async (req, res) => {
 
 app.patch('/tasks/:id', async (req, res) => {
 	try {
-		const data = {}
+		const data = {
+			updatedAt: new Date()
+		}
 
 		for (const [key, val] of Object.entries(req.body)) {
 			data[key] = val

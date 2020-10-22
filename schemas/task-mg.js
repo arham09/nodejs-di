@@ -18,10 +18,18 @@ const TaskSchema = new Schema({
 		required: false
 	},
 	completed: {
-		type: String,
+		type: Boolean,
 		unique: false,
 		required: true
-	}
+	},
+	createdAt: {
+		type: Date,
+		required: true
+	},
+	updatedAt: {
+		type: Date,
+		required: true
+	},
 })
 
 module.exports = mongoose => {

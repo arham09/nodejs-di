@@ -10,7 +10,9 @@ class Subscriber {
       originId: value.id,
       name: value.name,
       description: value.description,
-      completed: value.completed
+      completed: value.completed,
+      createdAt: value.createdAt,
+      updatedAt: value.updatedAt
     })
 
     data.save(err => {
