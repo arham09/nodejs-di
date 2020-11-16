@@ -48,6 +48,10 @@ app.get('/tasks', (req, res) => {
 	})
 })
 
+app.get('/hello', (req, res) => {
+	return res.json({ hello: 'world' })
+})
+
 app.get('/tasks/:id', (req, res) => {
 	TaskQuery.find({ originId: req.params.id }, (err, tasks) => {
 		if(err) {
