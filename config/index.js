@@ -1,4 +1,7 @@
+require('dotenv').config()
+
 module.exports = {
-  mongoUrl: 'mongodb://localhost:27017/testDb',
-  port: 2020
+  mongoUrl: process.env.MONGOURL,
+  pgUrl: process.env.PGURL,
+  port: process.env.PORT
 }
